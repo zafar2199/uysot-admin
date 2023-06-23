@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import AntDesignProvider from "@context/AntDesignProvider";
+import AuthProvider from "@context/AuthProvider";
 import QueryProvider from "@context/QueryProvider";
+import AntDesignProvider from "@context/AntDesignProvider";
 import App from "./app/index";
 
 import "@styles/main.scss";
@@ -9,9 +10,11 @@ import "@styles/main.scss";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <AntDesignProvider>
-            <QueryProvider>
-                <App />
-            </QueryProvider>
+            <AuthProvider>
+                <QueryProvider>
+                    <App />
+                </QueryProvider>
+            </AuthProvider>
         </AntDesignProvider>
     </React.StrictMode>
 );
