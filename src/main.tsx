@@ -10,11 +10,11 @@ import "@styles/main.scss";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <AntDesignProvider>
-            <AuthProvider>
-                <QueryProvider>
+            <QueryProvider>
+                <AuthProvider>
                     <App />
-                </QueryProvider>
-            </AuthProvider>
+                </AuthProvider>
+            </QueryProvider>
         </AntDesignProvider>
     </React.StrictMode>
 );

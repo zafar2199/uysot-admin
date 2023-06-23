@@ -1,21 +1,22 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import { MaskedInput } from "antd-mask-input";
 import clsx from "clsx";
-import { useCreate, useGetList } from "@hooks/request";
-import { authRegisterUrl } from "@constants/urls";
-import { IAuthRegisterRequest, IAuthRegisterResult } from "./types";
+import { useCreate } from "@hooks/request";
+import { useAuthContext } from "@context/AuthProvider";
+import { authLoginUrl, authRegisterUrl } from "@constants/urls";
+import {
+    IAuthLoginRequest,
+    IAuthLoginResult,
+    IAuthRegisterRequest,
+    IAuthRegisterResult,
+} from "./types";
 import styles from "./index.module.scss";
 
 const LoginForm = () => {
     const [stepTwo, setStepTwo] = useState(false);
     const [form] = Form.useForm();
-
-    // Get Request
-    const { isLoading: newsLoading, data: newsData } = useGetList<any>(
-        "news",
-        "/dashboard/builder/view"
-    );
+    const { setTokenAuth } = useAuthContext();
 
     const { mutate: registerPost, isLoading: registerLoading } = useCreate<
         IAuthRegisterRequest,
@@ -23,9 +24,9 @@ const LoginForm = () => {
     >(authRegisterUrl);
 
     const { mutate: loginPost, isLoading: loginLoading } = useCreate<
-        IAuthRegisterRequest,
-        IAuthRegisterResult
-    >(authRegisterUrl);
+        IAuthLoginRequest,
+        IAuthLoginResult
+    >(authLoginUrl);
 
     const loading = useMemo(
         () => registerLoading || loginLoading,
@@ -34,32 +35,32 @@ const LoginForm = () => {
 
     const phoneNumber = Form.useWatch("phone", form);
 
-    const registerSubmit = (values: IAuthRegisterRequest) => {
-        loginPost(values, {
-            onSuccess: (response) => {
-                console.log(response);
-                setStepTwo(true);
-            },
-            onError: (error) => {
-                console.log(error, "💥");
+    const handleSubmit = (values: IAuthRegisterRequest) => {
+        stepTwo
+            ? loginPost(values, {
+                  onSuccess: (response) => {
+                      setTokenAuth(true);
+                  },
+                  onError: (error) => {
+                      console.log(error.message, "💥");
 
-                message.error("Malumotlar noto'g'ri kiritildi");
-            },
-        });
+                      message.error("Malumotlar noto'g'ri kiritildi");
+                  },
+              })
+            : registerPost(values, {
+                  onSuccess: (response) => {
+                      setStepTwo(true);
+
+                      message.success("Sms yuborildi");
+                      console.log(response);
+                  },
+                  onError: (error) => {
+                      console.log(error, "💥");
+
+                      message.error("Malumotlar noto'g'ri kiritildi");
+                  },
+              });
     };
-
-    const loginSubmit = (values: IAuthRegisterRequest) => {
-        console.log("hi");
-    };
-
-    const handleSubmit = useCallback(
-        (values: IAuthRegisterRequest) => {
-            stepTwo ? loginSubmit(values) : registerSubmit(values);
-        },
-        [stepTwo]
-    );
-
-    console.log(handleSubmit);
 
     return (
         <Form
@@ -67,7 +68,7 @@ const LoginForm = () => {
             name="basic"
             layout="vertical"
             className={styles.form}
-            onFinish={registerSubmit}
+            onFinish={handleSubmit}
             autoComplete="off"
         >
             {stepTwo && (
@@ -96,7 +97,7 @@ const LoginForm = () => {
                     },
                 ]}
             >
-                <MaskedInput size="large" mask={"+99000000000"} />
+                <MaskedInput size="large" mask={"+990000000000"} />
             </Form.Item>
 
             <Button

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { appRoutes, loginRoutes } from "@constants/routes";
 import { useAuthContext } from "@context/AuthProvider";
+import { appRoutes, loginRoutes } from "@constants/routes";
 
 const App = () => {
     const { isAuthenticated } = useAuthContext();
