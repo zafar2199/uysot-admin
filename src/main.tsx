@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { LoginPage } from "@pages/index";
+import App from "./app/index";
 
 import "@styles/main.scss";
 import AntDesignProvider from "@context/AntDesignProvider";
@@ -8,7 +8,7 @@ import AntDesignProvider from "@context/AntDesignProvider";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <AntDesignProvider>
-            <LoginPage />
+            <App />
         </AntDesignProvider>
     </React.StrictMode>
 );
