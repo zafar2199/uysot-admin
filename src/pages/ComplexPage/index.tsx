@@ -1,7 +1,7 @@
 const ComplexPage = () => {
     return (
         <div>
-            <p>Login Page</p>
+            <p>Complex Page</p>
         </div>
     );
 };

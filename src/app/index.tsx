@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { appRoutes, loginRoutes } from "@constants/routes";
 
 const App = () => {
-    const USER = true;
+    const USER = false;
     const currentRoutes = useMemo(() => {
         return USER ? appRoutes : loginRoutes;
     }, [USER]);

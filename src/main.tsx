@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import AntDesignProvider from "@context/AntDesignProvider";
+import QueryProvider from "@context/QueryProvider";
 import App from "./app/index";
 
 import "@styles/main.scss";
-import AntDesignProvider from "@context/AntDesignProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <AntDesignProvider>
-            <App />
+            <QueryProvider>
+                <App />
+            </QueryProvider>
         </AntDesignProvider>
     </React.StrictMode>
 );

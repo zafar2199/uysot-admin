@@ -1,0 +1,13 @@
+.form {
+    margin-top: 24px;
+
+    &__btn {
+        width: 100%;
+        padding-block: 16px !important;
+        height: auto !important;
+    }
+}
+
+.hidden_input {
+    display: none;
+}

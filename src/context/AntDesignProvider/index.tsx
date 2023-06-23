@@ -5,6 +5,7 @@ import { AntDesignProviderProps } from "./types";
 const config: ThemeConfig = {
     token: {
         colorPrimary: "#6021a3",
+        borderRadius: 5,
     },
 };
 
