@@ -38,7 +38,7 @@ const LoginForm = () => {
     const handleSubmit = (values: IAuthRegisterRequest) => {
         stepTwo
             ? loginPost(values, {
-                  onSuccess: (response) => {
+                  onSuccess: () => {
                       setTokenAuth(true);
                   },
                   onError: (error) => {
